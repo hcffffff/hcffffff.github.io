@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="论文笔记（更新中）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文笔记">
+<meta property="og:url" content="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="chaofan">
+<meta property="og:description" content="论文笔记（更新中）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/论文笔记/截屏2022-10-15%2016.38.20.png">
+<meta property="og:image" content="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/论文笔记/截屏2022-10-15%2016.41.55.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/09/aT26XQ.png#shadow">
+<meta property="og:image" content="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/论文笔记/截屏2022-10-15%2017.56.53.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/09/aTRe9f.jpg#shadow">
+<meta property="og:image" content="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/论文笔记/截屏2022-10-15%2018.57.17.png">
+<meta property="og:image" content="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/论文笔记/截屏2022-10-15%2019.04.51.png">
+<meta property="og:image" content="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/论文笔记/截屏2022-10-16%2015.27.29.png">
+<meta property="og:image" content="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/论文笔记/截屏2022-10-16%2015.28.46.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/10/abpxoj.png#shadow">
+<meta property="og:image" content="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/论文笔记/截屏2022-10-24%2011.18.56.png">
+<meta property="article:published_time" content="2022-11-26T15:37:56.000Z">
+<meta property="article:modified_time" content="2022-11-26T15:53:38.111Z">
+<meta property="article:author" content="chaofan">
+<meta property="article:tag" content="学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/论文笔记/截屏2022-10-15%2016.38.20.png">
+
+<link rel="canonical" href="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>论文笔记 | chaofan</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?283ce806723e4661e06c77a2910e4faa";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">chaofan</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="chaofan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chaofan">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          论文笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-11-26 23:37:56 / Modified: 23:53:38" itemprop="dateCreated datePublished" datetime="2022-11-26T23:37:56+08:00">2022-11-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-DL/" itemprop="url" rel="index"><span itemprop="name">ML/DL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>论文笔记（更新中）<br><a id="more"></a></p>
+<h1 id="Deep-Learning-for-Sentiment-Analysis-A-Survey"><a href="#Deep-Learning-for-Sentiment-Analysis-A-Survey" class="headerlink" title="Deep Learning for Sentiment Analysis: A Survey"></a><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1801.07883.pdf">Deep Learning for Sentiment Analysis: A Survey</a></h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>语义分析和意见挖掘是研究人们对待实体（entities）的 意见（opinions）, 情感（sentiments）, 情绪（emotions）, 评价（appraisals）和 态度（attitudes）</p>
+<h2 id="传统方法"><a href="#传统方法" class="headerlink" title="传统方法"></a>传统方法</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">有监督</th>
+<th style="text-align:center">无监督</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">SVM、Maximum Entropy、NB</td>
+<td style="text-align:center">sentiment lexicons、grammatical analysis、syntactic patterns</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Word-Embedding"><a href="#Word-Embedding" class="headerlink" title="Word Embedding"></a>Word Embedding</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>methods</th>
+<th>note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Word2Vec</td>
+<td>Continuous Bag-of-Words model (CBOW), Skip-Gram model (SG)</td>
+</tr>
+<tr>
+<td>Global Vector (GloVe)</td>
+<td>trained on the nonzero entries of a global word-word co-occurrence matrix</td>
+</tr>
+<tr>
+<td>BERT</td>
+<td>SOTA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="深度学习方法"><a href="#深度学习方法" class="headerlink" title="深度学习方法"></a>深度学习方法</h2><p>RNN/CNN/LSTM/Attention/Memory Network/RecNN</p>
+<h2 id="Sentiment-Analysis-Tasks"><a href="#Sentiment-Analysis-Tasks" class="headerlink" title="Sentiment Analysis Tasks"></a>Sentiment Analysis Tasks</h2><p>由简到繁（对象的粒度）</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document level</td>
+<td>一整个文档对某个实体的意见评估：pos/neg</td>
+</tr>
+<tr>
+<td>sentence level</td>
+<td>subjectivity classification: 判断一句话是主观还是客观，若为主观，再判断pos/neg/neu</td>
+</tr>
+<tr>
+<td>aspect level</td>
+<td>判断一句话有几个层次（实体），对它们的情感aspect extraction, entity extraction, and aspect sentiment classification</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>除此之外，情感分析还做emotion analysis, sarcasm detection, multilingual sentiment analysis这些方向。</p>
+<h3 id="Document-Level"><a href="#Document-Level" class="headerlink" title="Document Level"></a>Document Level</h3><blockquote>
+<p>Sentiment classification at the document level is to assign an overall sentiment orientation/polarity to an opinion document, i.e., To determine whether the <strong>document</strong> (e.g., a full online review) conveys an overall positive or negative opinion.</p>
+</blockquote>
+<p>document表示：BoW模型（忽略词序、语法、句法）→n-gram→dense vector，BERT？</p>
+<p>网络模型：DNN、CNN、RNN、LSTM、Hierarchical Attention Network</p>
+<p>推荐阅读：<a target="_blank" rel="noopener" href="https://cs.stanford.edu/~diyiy/docs/naacl16.pdf">HAN for Document Classification</a></p>
+<h3 id="Sentence-Level"><a href="#Sentence-Level" class="headerlink" title="Sentence Level"></a>Sentence Level</h3><blockquote>
+<p>Sentence level sentiment classification is to determine the sentiment expressed in a single given sentence.</p>
+</blockquote>
+<p>语法语义分析、解析树</p>
+<h3 id="Aspect-Level"><a href="#Aspect-Level" class="headerlink" title="Aspect Level"></a>Aspect Level</h3><blockquote>
+<p>Aspect level sentiment classification considers both the <strong>sentiment</strong> and the <strong>target</strong> information. A target is usually an entity or an entity aspect. For simplicity, both entity and aspect are usually just called aspect.</p>
+<p>For example, in the sentence “the screen is very clear but the battery life is too short.” the sentiment is positive if the target aspect is “screen” but negative if the target aspect is “battery life”.</p>
+</blockquote>
+<p>三个重点：</p>
+<ul>
+<li>represent the context of a target. 生成目标对象上下文的表示：可以使用之前提到的文本表示方法</li>
+<li>generate a target representation. 生成目标对象的表示：可以类似词嵌入，学习一个文本嵌入（target embedding）</li>
+<li>identify the important sentiment context (words) for the specified target. 识别对于特定目标对象的重要情感上下文：目前常用注意力机制处理，但是还没有统治性的方法出现。</li>
+</ul>
+<h2 id="Aspect-extraction-amp-categorization"><a href="#Aspect-extraction-amp-categorization" class="headerlink" title="Aspect extraction &amp; categorization"></a>Aspect extraction &amp; categorization</h2><p>自动aspect（实体）抽取</p>
+<p>可以建模为一个序列标注问题</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/waterdream19/article/details/107021471">有监督的评价对象抽取论文总结</a></p>
+<h2 id="Opinion-expression-extraction"><a href="#Opinion-expression-extraction" class="headerlink" title="Opinion expression extraction"></a>Opinion expression extraction</h2><p>意见表达提取，旨在识别句子或文档中的情感表达</p>
+<blockquote>
+<p>identify the expressions of sentiment in a sentence or a document.</p>
+</blockquote>
+<h2 id="Sentiment-composition"><a href="#Sentiment-composition" class="headerlink" title="Sentiment composition"></a>Sentiment composition</h2><blockquote>
+<p>Sentiment composition claims that the sentiment orientation of an opinion expression is determined by the meaning of its constituents as well as the grammatical structure.</p>
+</blockquote>
+<h2 id="Opinion-holder-extraction"><a href="#Opinion-holder-extraction" class="headerlink" title="Opinion holder extraction"></a>Opinion holder extraction</h2><p>意见发表者提取</p>
+<h2 id="Temporal-opnion-mining"><a href="#Temporal-opnion-mining" class="headerlink" title="Temporal opnion mining"></a>Temporal opnion mining</h2><p>时态意见挖掘，预测未来观点。随着时间推移，观点会发生改变。</p>
+<h2 id="Sentiment-analysis-with-word-embedding"><a href="#Sentiment-analysis-with-word-embedding" class="headerlink" title="Sentiment analysis with word embedding"></a>Sentiment analysis with word embedding</h2><p>词嵌入的情感分析。词嵌入在情感分析模型中起着重要作用。</p>
+<h2 id="Sarcasm-analysis"><a href="#Sarcasm-analysis" class="headerlink" title="Sarcasm analysis"></a>Sarcasm analysis</h2><p>讽刺分析</p>
+<p><a target="_blank" rel="noopener" href="https://paperswithcode.com/task/sarcasm-detection">sarcasm detection Benchmarks</a></p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2107.02276.pdf">Sarcasm Detection: A Comparative Study</a></p>
+<h2 id="Emotion-analysis"><a href="#Emotion-analysis" class="headerlink" title="Emotion analysis"></a>Emotion analysis</h2><p>情绪分析。主要的情绪包括爱、喜悦、惊讶、愤怒、悲伤和恐惧。情绪的概念与情感密切相关。</p>
+<h2 id="Multimodal-data-for-sentiment-analysis"><a href="#Multimodal-data-for-sentiment-analysis" class="headerlink" title="Multimodal data for sentiment analysis"></a>Multimodal data for sentiment analysis</h2><p>多模态数据的情感分析。如承载文本、视觉和听觉信息的数据，已经被用来帮助情感分析，提供额外的情感信号。</p>
+<p><a target="_blank" rel="noopener" href="https://paperswithcode.com/task/multimodal-sentiment-analysis">multimodal sentiment analysis Benchmarks</a></p>
+<h2 id="Resource-poor-languages-and-multilingual-sentiment-analysis"><a href="#Resource-poor-languages-and-multilingual-sentiment-analysis" class="headerlink" title="Resource-poor languages and multilingual sentiment analysis"></a>Resource-poor languages and multilingual sentiment analysis</h2><p>资源贫乏语言与多语言情感分析</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/108168121">总结</a></p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1801.07883?source=post_page---------------------------">论文arxiv主页</a></p>
+<p><a target="_blank" rel="noopener" href="https://lalalei21.github.io/nlp/sentiment_analysis/#%E5%85%B6%E4%BB%96%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E4%BB%BB%E5%8A%A1">情感分析论文</a></p>
+<h1 id="RoBERTa"><a href="#RoBERTa" class="headerlink" title="RoBERTa"></a>RoBERTa</h1><p>从模型上来说，RoBERTa基本没有什么太大创新，主要是在BERT基础上做了几点调整：</p>
+<ol>
+<li><p>训练时间更长，batch size更大，训练数据更多；</p>
+</li>
+<li><p>移除了next predict loss；</p>
+</li>
+<li>训练序列更长；</li>
+<li>动态调整Masking机制。</li>
+<li>Byte level BPE RoBERTa is trained with dynamic masking (Section 4.1), </li>
+<li>FULL - SENTENCES without NSP loss (Section 4.2), </li>
+<li>large mini-batches (Section 4.3) and a larger byte-level BPE (Section 4.4).</li>
+</ol>
+<h1 id="ELECTRA"><a href="#ELECTRA" class="headerlink" title="ELECTRA"></a>ELECTRA</h1><h2 id="创新"><a href="#创新" class="headerlink" title="创新"></a>创新</h2><ul>
+<li>提出了新的模型预训练的框架，采用generator和discriminator的结合方式，但又不同于GAN</li>
+<li>将Masked Language Model的方式改为了replaced token detection</li>
+<li>因为masked language model 能有效地学习到context的信息，所以能很好地学习embedding，所以使用了weight sharing的方式将generator的embedding的信息共享给discriminator</li>
+<li>dicriminator 预测了generator输出的每个token是不是original的，从而高效地更新transformer的各个参数，使得模型的熟练速度加快</li>
+<li>该模型采用了小的generator以及discriminator的方式共同训练，并且采用了两者loss相加，使得discriminator的学习难度逐渐地提升，学习到更难的token（plausible tokens）</li>
+<li>模型在fine-tuning 的时候，丢弃generator，只使用discriminator</li>
+</ul>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/133233364">ELECTRA论文阅读笔记</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/118135466">ELECTRA 详解</a></p>
+<h1 id="XLNet"><a href="#XLNet" class="headerlink" title="XLNet"></a>XLNet</h1><p>BERT方法的预训练和微调过程的差异性：预训练时输入的部分词被mask，而微调时并不存在mask词。XLNet优点：</p>
+<ol>
+<li>通过最大化因式分解顺序的所有排列的预期可能性来学习双向语境</li>
+<li>自回归，使得输入可以不限长度</li>
+<li>融合Transformer-XL思路</li>
+</ol>
+<h2 id="AR-or-AE"><a href="#AR-or-AE" class="headerlink" title="AR or AE ?"></a>AR or AE ?</h2><p>AR(Auto-regressive)</p>
+<ul>
+<li>前一个词的输出作为预测这个词的输入</li>
+<li>无法获得双向语境信息</li>
+<li>ELMo（双向的AR）、GPT</li>
+<li>给定文本序列$\bold{x}=[x_1, …x_T]$，目标是调整参数使得训练数据上的似然函数最大：<img src="./论文笔记/截屏2022-10-15 16.38.20.png" alt="截屏2022-10-15 16.38.20"></li>
+</ul>
+<p>AE(Auto-encoding)</p>
+<ul>
+<li>即：mask方法，可使用双向的信息</li>
+<li>[mask] 信息没有被使用</li>
+<li>Fine-tuning阶段看不到这种被强行加入的 [mask] 标记，两个阶段存在使用模式不一致的情形，可能带来一定的性能损失</li>
+<li>BERT 通过将序列 $\bold{x}$ 中随机挑选 15% 的 Token 变成 [MASK] 得到带噪声版本的 $\hat{\bold{x}}$。假设被 Mask 的原始值为$\bar{\bold{x}}$，那么 BERT 希望尽量根据上下文恢复（猜测）出原始值，也就是<img src="./论文笔记/截屏2022-10-15 16.41.55.png" alt="截屏2022-10-15 16.41.55">其中$m_t=1$表示$t$位置是一个[mask]，即只需要求 [mask] 掉位置的概率，$x’$ 代表除 $x$ 外的序列中所有词。</li>
+</ul>
+<p><strong>XLNet出发点：融合两者的优点，具体来说，站在AR的角度，引入和双向语言模型等价的效果。使得模型看上去仍然是从左向右的输入和预测模式，但是其实内部已经引入了当前单词的下文信息</strong></p>
+<h2 id="Permutation-language-model"><a href="#Permutation-language-model" class="headerlink" title="Permutation language model"></a>Permutation language model</h2><p>具体实现方式：<strong>通过随机取一句话的随机排列的一种，然后将末尾一定量的词给 “遮掩”（和 BERT 里的直接替换 “[MASK]” 有些不同）掉，最后用 AR 的方式来按照这种排列方式依此预测被 “遮掩” 掉的词</strong>。目标不是具体要预测哪个词，而是<strong>谁在最后，就预测谁</strong>。</p>
+<p><img src="https://s1.ax1x.com/2020/08/09/aT26XQ.png#shadow" alt="img" style="zoom:67%;" /></p>
+<p>挑选最后的几个做mask呢？设置超参数K，K等于总长度除以需要预测的个数，如：K=7/2，论文中给出实验最佳K值介于6和7之间，取倒数：$(\frac{1}{7}, \frac{1}{6})$，而BERT中的15%恰好处于之间。</p>
+<p>对于一个长度为T的句子，为节省计算量，只随机采样 $T!$ 里的部分排列，$Z_T$ 表示长度为 T 的序列的所有排列的集合，$z\in Z_T$ 是其中一种排列，$z_t$ 表示排列的第 $t$ 个元素，而 $z_{&lt;t}$ 表示 $z$ 的第 1 到 t-1 个元素</p>
+<p>Permutation LM的目标使似然概率最大（从所有的排列中采样一种，然后根据这个排列来分解联合概率成条件概率的乘积，然后加起来）</p>
+<p><img src="./论文笔记/截屏2022-10-15 17.56.53.png" alt="截屏2022-10-15 17.56.53" style="zoom: 67%;" /></p>
+<h3 id="如何Permute？"><a href="#如何Permute？" class="headerlink" title="如何Permute？"></a>如何Permute？</h3><p>Permutation 具体的实现方式不是打乱输入句子的顺序（在fine-tuning阶段也不可能实现），而是通过对 Transformer 的 <strong>Attention Mask</strong> 进行操作</p>
+<p><img src="https://s1.ax1x.com/2020/08/09/aTRe9f.jpg#shadow" alt="img" style="zoom:50%;" /></p>
+<p>比如序号为1234的句子，随机取一种排列3241，Attention mask如上图，第 $e_{ij}$ 为红色代表打乱后的排序下第 $i$ 个元素能知道第 $j$ 个元素的信息，白色为不知道。</p>
+<p>具体的，在 Transformer 内部，通过 Attention 掩码，从 $\bold{x}$ 的输入单词里面，也就是 $x_i$ 的上文和下文单词中，随机选择 $i-1$ 个，放到 $x_i$ 的上文位置中，把其它单词的输入通过 Attention 掩码隐藏掉，于是就能够达成我们期望的目标（当然这个所谓放到 $x_i$ 的上文位置，只是一种形象的说法，其实在内部，就是通过 Attention Mask ，把其它没有被选到的单词 Mask 掉，不让它们在预测单词 $x_i$ 的时候发生作用而已。看着就类似于把这些被选中的单词放到了上文 Context_before 的位置了）。</p>
+<h3 id="位置信息？"><a href="#位置信息？" class="headerlink" title="位置信息？"></a>位置信息？</h3><p>直接使用这个方法会产生问题：</p>
+<p>假设输入的句子是”I like New York”，并且一种排列为 z=[1, 3, 4, 2]，假设我们需要预测的是 $z_3=4$ 根据公式：</p>
+<p>$p_\theta(X_{z_3}=x|x_{z_1z_2})=p_\theta(X_4=x|x_1x_3)=\dfrac{\mathrm{exp}(e(x)^Th_\theta (x_1x_3))}{\sum_{x’}\mathrm{exp}(e(x’)^Th_\theta(x_1x_3))}$</p>
+<p>式中 $x$ = York，$z_i$ 代表打乱排列后的第 i 个词，$x_i$ 代表原本序列中的第 i 个词。另外我们再假设一种排列为 z’=[1,3,2,4]，我们需要预测 $z_3=2$ 根据公式：</p>
+<p>$p_\theta(X_{z_3}=x|x_{z_1z_2})=p_\theta(X_2=x|x_1x_3)=\dfrac{\mathrm{exp}(e(x)^Th_\theta (x_1x_3))}{\sum_{x’}\mathrm{exp}(e(x’)^Th_\theta(x_1x_3))}$</p>
+<p>可以看出，二者的结果是一样的，即问题出在模型并不知道要预测的那个词在原始序列中的位置。（注意 Transformer 输入了位置编码，但位置编码是和输入的 Embedding 加到一起作为输入的，即 $x_1, x_3$ 带有正确的位置信息，但对于需要预测的 $z_3$ ，模型是不知道位置信息的）所以需要“显式”地告诉模型需要预测的原始位置信息。</p>
+<p>$p_\theta(X_{z_t}=x|\bold{x}_{z&lt;t})=\dfrac{\mathrm{exp}(e(x)^T g_\theta (\bold{x}_{z_{&lt;t}},z_t))}{\sum_{x’}\mathrm{exp}(e(x’)^T g_\theta (\bold{x}_{z_{&lt;t}},z_t))}$</p>
+<p>上式中的 $g_\theta (\bold{x}_{z_{&lt;t}},z_t)$ 表示一个包含词 $\bold{x}_{z_{&lt;t}}$ 和位置信息 $z_t$ 的新模型。</p>
+<h3 id="Two-Stream-Self-Attention"><a href="#Two-Stream-Self-Attention" class="headerlink" title="Two-Stream Self-Attention"></a>Two-Stream Self-Attention</h3><p>如何表示 $g_\theta$ ，需要满足两点要求：</p>
+<ul>
+<li>预测 $\bold{x}_{z_t}$，$g_\theta$ 只能使用位置信息 $z_t$ 而不能直接使用 $\bold{x}_{z_t}$ </li>
+<li>为了预测 $z_t$ 之后的词，$g_\theta$ 必须编码 $\bold{x}_{z_t}$ 的信息</li>
+</ul>
+<p>解决方法：使用包含两个隐状态的模型</p>
+<ol>
+<li>内容隐状态 content stream: $h_\theta(\bold{x}_{z_{\leq t}})$ ，和标准的Transformer一样，既编码上下文，也编码 $x_{z_t}$ 本身。</li>
+<li>查询隐状态 query stream: $g_\theta(\bold{x}_{z_{&lt;t}},z_t)$，只编码上下文和要预测的位置 $z_t$，但是不包括 $x_{z_t}$ 本身。用于代替Bert中的 [mask] 标记。</li>
+</ol>
+<p>计算过程，从 $m=1$ 到第 $M$ 层逐层计算：</p>
+<p><img src="./论文笔记/截屏2022-10-15 18.57.17.png" alt="截屏2022-10-15 18.57.17"></p>
+<p>梯度更新和标准的Self-Attention一样，<strong>在fine-tune的时候可以丢掉query流只使用content流</strong>。（二者权重共享？）</p>
+<p>模型的大致结构：</p>
+<p><img src="./论文笔记/截屏2022-10-15 19.04.51.png" alt="截屏2022-10-15 19.04.51"></p>
+<p>假设排列为3-2-4-1，并且现在预测第 1 个位置（原排列的位置1，重组排列后的位置4）的词的概率。</p>
+<ul>
+<li><p>图a中是Content流的计算，可以参考所有4个词的Content，因此$K\&amp;V=[h_1^{(0)},h_2^{(0)},h_3^{(0)},h_4^{(0)}]$，$Q=h_1^{(0)}$，其实就是标准的Transformer的计算过程</p>
+</li>
+<li><p>图b中是Query流的计算，不能参考自己的内容，因此$K\&amp;V=[h_1^{(0)},h_2^{(0)},h_3^{(0)}]$，$Q=g_1^{(0)}$</p>
+</li>
+<li>图c中是完整计算过程，首先 $h$ 和 $g$ 分别被初始化为 $e(x_i)$ 和 $W$，然后分别计算得到第一层的输出，注意右边的 attention mask 区别</li>
+</ul>
+<p>for content stream：</p>
+<p><img src="./论文笔记/截屏2022-10-16 15.27.29.png" alt="截屏2022-10-16 15.27.29" style="zoom:80%;" /></p>
+<p>for query stream: </p>
+<p><img src="./论文笔记/截屏2022-10-16 15.28.46.png" alt="截屏2022-10-16 15.28.46" style="zoom:80%;" /></p>
+<h2 id="Transformer-XL"><a href="#Transformer-XL" class="headerlink" title="Transformer-XL"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1901.02860">Transformer-XL</a></h2><h3 id="Segment-Recurrence-Mechanism-段循环机制"><a href="#Segment-Recurrence-Mechanism-段循环机制" class="headerlink" title="Segment Recurrence Mechanism 段循环机制"></a>Segment Recurrence Mechanism 段循环机制</h3><p>简单介绍一下：解决了Transformer不能一次性输入太长文本的问题。可以理解为Transformer+RNN</p>
+<p><img src="https://s1.ax1x.com/2020/08/10/abpxoj.png#shadow" alt="img" style="zoom:67%;" /></p>
+<p>对长序列进行分段，在前一段计算完后，将它计算出的隐状态都保存下来，存到一个 Memeory 中，之后在计算当前段的时候，将之前存下来的隐状态和当前段的隐状态拼起来，作为 Attention 机制的 K 和 V，从而获得更长的上下文信息</p>
+<h3 id="Relative-Position-Encoding-相对位置编码"><a href="#Relative-Position-Encoding-相对位置编码" class="headerlink" title="Relative Position Encoding 相对位置编码"></a>Relative Position Encoding 相对位置编码</h3><ul>
+<li>Transformer中考虑了序列的位置信息，在分段的情况下，如果仅仅对于每个段仍直接使用 Transformer 中的位置编码，即每个不同段在同一个位置上的表示使用相同的位置编码，就会出现问题。比如，第 i−2 段和第 i−1 段的第一个位置将具有相同的位置编码，但它们对于第 i 段重要性显然并不相同</li>
+<li><strong>相对位置编码</strong>，不再关心句中词的绝对位置信息，而是相对的，比如说两个词之间隔了多少个词这样的相对信息</li>
+</ul>
+<h2 id="Relative-Segment-Encoding-相对段编码？"><a href="#Relative-Segment-Encoding-相对段编码？" class="headerlink" title="Relative Segment Encoding 相对段编码？"></a>Relative Segment Encoding 相对段编码？</h2><ul>
+<li>改进 Bert 中的 NSP 任务</li>
+<li>和 BERT 一样，选择两个句子，它们有 50% 的概率是连续的句子（前后语义相关），有 50% 的概率是不连续（无关) 的句子。把这两个句子拼接后当成一个句子来学习 Permutation LM。输入和 BERT 是类似的：[A, SEP, B, SEP, CLS]。</li>
+<li>BERT 使用的是绝对的 Segment 编码，也就是第一个句子对于的 Segment id 是 0，而第二个句子是 1。这样如果把两个句子换一下顺序，那么输出是不一样的。XLNet 使用的是相对的 Segment 编码，它是在计算 Attention 的时候判断两个词是否属于同一个 Segment，如果位置 i 和 j 的词属于同一个 segment，那么使用一个可以学习的 Embedding $s_{ij}=s+$，否则 $s_{ij}=s−$，也就是说，我们只关心它们是属于同一个 segment 还是属于不同的 segment。</li>
+<li>计算 attention 时：$a_{ij}=(q_i+b)^T s_{ij}$，其中 $q_i$ 是第 $i$ 个位置的 query 向量。</li>
+<li>最后我们会把这个 attention score 加到原来计算的 attention weight 里，这样它就能学到当 i 和 j 都属于某个 segment 的特征，以及 i 和 j 属于不同 segment 的特征</li>
+</ul>
+<h2 id="XLNet-与-Bert-对比"><a href="#XLNet-与-Bert-对比" class="headerlink" title="XLNet 与 Bert 对比"></a>XLNet 与 Bert 对比</h2><p>假设输入是 [New, York, is, a, city] ，并且假设恰巧XLNet和BERT都选择使用 [is, a, city] 来预测 ‘New’ 和 ‘York’。同时我们假设XLNet的排列顺序为 [is, a, city, New, York] 。那么它们优化的目标函数分别为：</p>
+<p>$\jmath_{\mathrm{BERT}} = \mathrm{log} p(\mathrm{New}|\mathrm{is\ a\ city}) + \mathrm{log} p(\mathrm{York}|\mathrm{is\ a\ city})$</p>
+<p>$\jmath_{\mathrm{XLNet}} = \mathrm{log} p(\mathrm{New}|\mathrm{is\ a\ city}) + \mathrm{log} p(\mathrm{York}|\mathrm{is\ a\ city\ New})$</p>
+<p>可以发现，XLNet可以在预测York的使用利用New的信息，因此它能学到”New York”经常出现在一起而且它们出现在一起的语义和单独出现是完全不同的。</p>
+<h2 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h2><h3 id="data-utils-py"><a href="#data-utils-py" class="headerlink" title="data_utils.py"></a>data_utils.py</h3><p>Sentence piece 模型</p>
+<p>读取每一个文件的每一行，然后使用sp切分成WordPiece，然后变成id，放到数组input_data里。另外还有一个sent_ids，用来表示句子。对于每一个文件(我们这里只有一个)，最终是为了得到”input_data, sent_ids = [], []”两个list。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input_data&#x3D;[19  5372 19317  6014   111 17634  2611    19  1084   111   420   152    25  6096    26  8888]</span><br><span class="line">sent_ids&#x3D;[ True  True  True  True  True  True  True False False False False False False False False False]</span><br></pre></td></tr></table></figure>
+<p>第一个句子是”我的空调漏水怎么办”，使用sp切分后变成”[‘▁’, ‘我的’, ‘空调’, ‘漏’, ‘水’, ‘怎么’, ‘办’]”，最后变成ID得到[19, 5372, 19317, 6014, 111, 17634, 2611]。而sent_ids是[ True  True  True  True  True  True  True]。</p>
+<p>sent_ids可以判断哪些ID是属于一个句子的，也就是sent_ids通过交替的True和False来告诉我们句子的边界</p>
+<p>拼接句子需要保证反转句子的最后一个 sent_id 与下一句第一个不同。</p>
+<p>生成 Pretrain 数据：{ 64(reuse_len) A [sep] B [sep] [CLS] } 共128。</p>
+<p>固定64个作为cache。然后从i+reuse_len位置开始不断寻找句子，直到这些句子的Token数大于61(128-64-3)。</p>
+<h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><p>论文解读：</p>
+<p><a target="_blank" rel="noopener" href="https://wmathor.com/index.php/archives/1475/">https://wmathor.com/index.php/archives/1475/</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/110204573">https://zhuanlan.zhihu.com/p/110204573</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/70257427">https://zhuanlan.zhihu.com/p/70257427</a></p>
+<p>代码解读：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_37947156/article/details/100315836">https://blog.csdn.net/weixin_37947156/article/details/100315836</a></p>
+<h1 id="BERT-CHN-WWM"><a href="#BERT-CHN-WWM" class="headerlink" title="BERT-CHN-WWM"></a>BERT-CHN-WWM</h1><h2 id="wwm-whole-word-masking-or-N-gram-mask"><a href="#wwm-whole-word-masking-or-N-gram-mask" class="headerlink" title="wwm(whole word masking) or N-gram mask?"></a>wwm(whole word masking) or N-gram mask?</h2><p><img src="./论文笔记/截屏2022-10-24%2011.18.56.png" alt="截屏2022-10-24 11.18.56" style="zoom:80%;" /></p>
+<ul>
+<li>wwm: 虽然 token 是最小的单位，但在 [MASK] 的时候是基于分词的</li>
+<li>N-gram Masking: 是对连续n个词进行 [MASK]，如图中把“语 言 模 型”都 [MASK 了，就是一个 2-gram Masking。<strong>虽然[MASK]是对分词后的结果进行，但在输入的时候还是单个的token。</strong></li>
+<li>MacBERT: 采用基于分词的 n-gram masking，1-gram~4-gram Masking的概率分别是40%、30%、20%、10%。</li>
+</ul>
+<h2 id="预训练任务"><a href="#预训练任务" class="headerlink" title="预训练任务"></a>预训练任务</h2><h3 id="Mac-MLM-as-correction"><a href="#Mac-MLM-as-correction" class="headerlink" title="Mac(MLM as correction)"></a>Mac(MLM as correction)</h3><ul>
+<li>使用全词掩码和N-gram掩码</li>
+<li>取消 [mask] token，而使用随机近义词替换，如果没有近义词，使用随机替换</li>
+<li>15% input，80% 替换为近义词，10% 随机替换，10% 不替换</li>
+</ul>
+<h3 id="SOP-sentence-order-prediction"><a href="#SOP-sentence-order-prediction" class="headerlink" title="SOP(sentence order prediction)"></a>SOP(sentence order prediction)</h3><p>结构和NSP一样，两个句子是连续的为正例，负例为交换原文两句子顺序</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"># 学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/NLP-basic/" rel="prev" title="NLP_basic">
+      <i class="fa fa-chevron-left"></i> NLP_basic
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Learning-for-Sentiment-Analysis-A-Survey"><span class="nav-number">1.</span> <span class="nav-text">Deep Learning for Sentiment Analysis: A Survey</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">传统方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word-Embedding"><span class="nav-number">1.3.</span> <span class="nav-text">Word Embedding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">深度学习方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sentiment-Analysis-Tasks"><span class="nav-number">1.5.</span> <span class="nav-text">Sentiment Analysis Tasks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Document-Level"><span class="nav-number">1.5.1.</span> <span class="nav-text">Document Level</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sentence-Level"><span class="nav-number">1.5.2.</span> <span class="nav-text">Sentence Level</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Aspect-Level"><span class="nav-number">1.5.3.</span> <span class="nav-text">Aspect Level</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Aspect-extraction-amp-categorization"><span class="nav-number">1.6.</span> <span class="nav-text">Aspect extraction &amp; categorization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Opinion-expression-extraction"><span class="nav-number">1.7.</span> <span class="nav-text">Opinion expression extraction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sentiment-composition"><span class="nav-number">1.8.</span> <span class="nav-text">Sentiment composition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Opinion-holder-extraction"><span class="nav-number">1.9.</span> <span class="nav-text">Opinion holder extraction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Temporal-opnion-mining"><span class="nav-number">1.10.</span> <span class="nav-text">Temporal opnion mining</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sentiment-analysis-with-word-embedding"><span class="nav-number">1.11.</span> <span class="nav-text">Sentiment analysis with word embedding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sarcasm-analysis"><span class="nav-number">1.12.</span> <span class="nav-text">Sarcasm analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Emotion-analysis"><span class="nav-number">1.13.</span> <span class="nav-text">Emotion analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multimodal-data-for-sentiment-analysis"><span class="nav-number">1.14.</span> <span class="nav-text">Multimodal data for sentiment analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Resource-poor-languages-and-multilingual-sentiment-analysis"><span class="nav-number">1.15.</span> <span class="nav-text">Resource-poor languages and multilingual sentiment analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">1.16.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RoBERTa"><span class="nav-number">2.</span> <span class="nav-text">RoBERTa</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ELECTRA"><span class="nav-number">3.</span> <span class="nav-text">ELECTRA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E6%96%B0"><span class="nav-number">3.1.</span> <span class="nav-text">创新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XLNet"><span class="nav-number">4.</span> <span class="nav-text">XLNet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AR-or-AE"><span class="nav-number">4.1.</span> <span class="nav-text">AR or AE ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Permutation-language-model"><span class="nav-number">4.2.</span> <span class="nav-text">Permutation language model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95Permute%EF%BC%9F"><span class="nav-number">4.2.1.</span> <span class="nav-text">如何Permute？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%EF%BC%9F"><span class="nav-number">4.2.2.</span> <span class="nav-text">位置信息？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Two-Stream-Self-Attention"><span class="nav-number">4.2.3.</span> <span class="nav-text">Two-Stream Self-Attention</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer-XL"><span class="nav-number">4.3.</span> <span class="nav-text">Transformer-XL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Segment-Recurrence-Mechanism-%E6%AE%B5%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6"><span class="nav-number">4.3.1.</span> <span class="nav-text">Segment Recurrence Mechanism 段循环机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Relative-Position-Encoding-%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="nav-number">4.3.2.</span> <span class="nav-text">Relative Position Encoding 相对位置编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Relative-Segment-Encoding-%E7%9B%B8%E5%AF%B9%E6%AE%B5%E7%BC%96%E7%A0%81%EF%BC%9F"><span class="nav-number">4.4.</span> <span class="nav-text">Relative Segment Encoding 相对段编码？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XLNet-%E4%B8%8E-Bert-%E5%AF%B9%E6%AF%94"><span class="nav-number">4.5.</span> <span class="nav-text">XLNet 与 Bert 对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%83%A8%E5%88%86"><span class="nav-number">4.6.</span> <span class="nav-text">代码部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#data-utils-py"><span class="nav-number">4.6.1.</span> <span class="nav-text">data_utils.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83-1"><span class="nav-number">4.7.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BERT-CHN-WWM"><span class="nav-number">5.</span> <span class="nav-text">BERT-CHN-WWM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#wwm-whole-word-masking-or-N-gram-mask"><span class="nav-number">5.1.</span> <span class="nav-text">wwm(whole word masking) or N-gram mask?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E4%BB%BB%E5%8A%A1"><span class="nav-number">5.2.</span> <span class="nav-text">预训练任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac-MLM-as-correction"><span class="nav-number">5.2.1.</span> <span class="nav-text">Mac(MLM as correction)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SOP-sentence-order-prediction"><span class="nav-number">5.2.2.</span> <span class="nav-text">SOP(sentence order prediction)</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="chaofan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">chaofan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hcffffff" title="Github → https:&#x2F;&#x2F;github.com&#x2F;hcffffff" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hechaofan1@outlook.com" title="Email → mailto:hechaofan1@outlook.com" rel="noopener" target="_blank"><i class="far fa-envelope-open fa-fw"></i>Email</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chaofan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一些NLP基础知识，方便随时查看">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NLP_basic">
+<meta property="og:url" content="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/NLP-basic/index.html">
+<meta property="og:site_name" content="chaofan">
+<meta property="og:description" content="一些NLP基础知识，方便随时查看">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/%E5%9F%BA%E4%BA%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84emedding.jpg">
+<meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/attention-%E8%AE%A1%E7%AE%97%E5%9B%BE.png">
+<meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/qk-softmax.jpg">
+<meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/multi-head-%E6%8B%BC%E6%8E%A5.jpg">
+<meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/tf-%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6.jpg">
+<meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/encoder-%E8%AF%A6%E7%BB%86%E5%9B%BE.png">
+<meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/ed-%E4%BA%A4%E4%BA%92.jpg">
+<meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/tf-%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90.gif">
+<meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/tf-%E5%8A%A8%E6%80%81%E7%BB%93%E6%9E%9C-2.gif">
+<meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/gpt-%E6%A8%A1%E5%9E%8B.jpg">
+<meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/gpt-fine.jpg">
+<meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/bert-%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84.jpg">
+<meta property="article:published_time" content="2022-11-26T15:32:09.000Z">
+<meta property="article:modified_time" content="2022-11-26T15:35:55.188Z">
+<meta property="article:author" content="chaofan">
+<meta property="article:tag" content="学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/%E5%9F%BA%E4%BA%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84emedding.jpg">
+
+<link rel="canonical" href="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/NLP-basic/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>NLP_basic | chaofan</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?283ce806723e4661e06c77a2910e4faa";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">chaofan</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/NLP-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="chaofan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chaofan">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NLP_basic
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-11-26 23:32:09 / Modified: 23:35:55" itemprop="dateCreated datePublished" datetime="2022-11-26T23:32:09+08:00">2022-11-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-DL/" itemprop="url" rel="index"><span itemprop="name">ML/DL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>一些NLP基础知识，方便随时查看</p>
+<a id="more"></a>
+<h1 id="补充知识"><a href="#补充知识" class="headerlink" title="补充知识"></a>补充知识</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>TP 真阳性</th>
+<th>FP 假阳性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FN 假阴性</td>
+<td>TN 真阴性</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>表示预测值和真实值之间的差距的矩阵</p>
+<p>准确率：$\dfrac{TP+TN}{TP+TN+FP+FN}$，但是在<strong>样本不平衡</strong>的情况下，并不能作为很好的指标来衡量结果。举个简单的例子，比如在一个总样本中，正样本占90%，负样本占10%，样本是严重不平衡的。对于这种情况，我们只需要将全部样本预测为正样本即可得到90%的高准确率，但实际上我们并没有很用心的分类，只是随便无脑一分而已。这就说明了：<strong>由于样本不平衡的问题，导致了得到的高准确率结果含有很大的水分。即如果样本不平衡，准确率就会失效。</strong></p>
+<p>Precision精确率：$\dfrac{TP}{TP+FP}$，<strong>查准率</strong>，它是<strong>针对预测结果</strong>而言的，它的含义是<strong>在所有被预测为正的样本中实际为正的样本的概率</strong>，意思就是在预测为正样本的结果中，我们有多少把握可以预测正确。</p>
+<p>Recall召回率：$\dfrac{TP}{TP+FN}$，<strong>查全率</strong>，它是<strong>针对原样本</strong>而言的，它的含义是<strong>在实际为正的样本中被预测为正样本的概率</strong>。更关心负例的情况下，<strong>召回率越高，代表实际坏用户被预测出来的概率越高，它的含义类似：宁可错杀一千，绝不放过一个。</strong></p>
+<p>F1分数=<strong>2*查准率*查全率 / (查准率 + 查全率)</strong>，Precision和Recall二者的平衡</p>
+<p>reference: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/30643044">https://www.zhihu.com/question/30643044</a></p>
+<h2 id="N-gram"><a href="#N-gram" class="headerlink" title="N-gram"></a>N-gram</h2><p>将文本里面的内容按照字节进行大小为N的滑动窗口操作，形成了长度是N的字节片段序列。</p>
+<p>每一个字节片段称为gram，对所有gram的出现频度进行统计，并且按照事先设定好的阈值进行过滤，形成关键gram列表，也就是这个文本的向量特征空间，列表中的每一种gram就是一个特征向量维度。</p>
+<p>该模型基于这样一种假设，第N个词的出现只与前面N-1个词相关，而与其它任何词都不相关，整句的概率就是各个词出现概率的乘积。这些概率可以通过直接从语料中统计N个词同时出现的次数得到。常用的是二元的Bi-Gram和三元的Tri-Gram。</p>
+<h2 id="Subword"><a href="#Subword" class="headerlink" title="Subword"></a>Subword</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/198964217">BPE、WordPiece、ULM详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/86965595">深入理解NLP Subword算法</a></p>
+<p>传统构造词表的方法，是先对各个句子进行分词，然后再统计并选出频数最高的前N个词组成词表。通常训练集中包含了大量的词汇，以英语为例，总的单词数量在17万到100万左右。出于计算效率的考虑，通常N的选取无法包含训练集中的所有词。因而，这种方法构造的词表存在着如下的问题：</p>
+<ul>
+<li>实际应用中，模型预测的词汇是开放的，对于未在词表中出现的词(Out Of Vocabulary, OOV)，模型将无法处理及生成；</li>
+<li>词表中的低频词/稀疏词在模型训练过程中无法得到充分训练</li>
+<li>一个单词因为不同的形态会产生不同的词，具有相近的意思，但是在词表中这些词会被当作不同的词处理，一方面增加了训练冗余，另一方面也造成了大词汇量问题。</li>
+</ul>
+<p>三种主流的Subword算法：</p>
+<ul>
+<li>Byte Pair Encoding (BPE)</li>
+<li>WordPiece</li>
+<li>Unigram Language Model</li>
+</ul>
+<h3 id="BPE"><a href="#BPE" class="headerlink" title="BPE"></a>BPE</h3><p>GPT-2和RoBERTa使用的Subword算法都是BPE</p>
+<p>步骤：</p>
+<ol>
+<li>准备足够大的训练语料，并确定期望的Subword词表大小；</li>
+<li>将单词拆分为成最小单元。比如英文中26个字母加上各种符号，这些作为初始词表；</li>
+<li>在语料上统计单词内相邻单元对的频数，选取频数最高的单元对合并成新的Subword单元；</li>
+<li>重复第3步直到达到第1步设定的Subword词表大小或下一个最高频数为1。</li>
+</ol>
+<p>举例：</p>
+<ol>
+<li>语料集：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&#39;low&#39;: 5,</span><br><span class="line">	&#39;lower&#39;: 2,</span><br><span class="line">	&#39;newest&#39;: 6,</span><br><span class="line">	&#39;widest&#39;: 3</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>拆分为最小单元，并统计相邻单元频数，最高频数的合并后添加回去</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#39;l&#39;, &#39;o&#39;, &#39;w&#39;, &#39;e&#39;, &#39;r&#39;, &#39;n&#39;, &#39;w&#39;, &#39;s&#39;, &#39;t&#39;, &#39;i&#39;, &#39;d&#39;, &#39;&#x2F;w&#39;&#125;</span><br><span class="line">&#x3D;&gt; &#39;es&#39; 出现频数最高</span><br><span class="line">&#123;&#39;l&#39;, &#39;o&#39;, &#39;w&#39;, &#39;e&#39;, &#39;r&#39;, &#39;n&#39;, &#39;w&#39;, &#39;s&#39;, &#39;t&#39;, &#39;i&#39;, &#39;d&#39;, &#39;&#x2F;w&#39;, &#39;es&#39;&#125;</span><br><span class="line">&#x3D;&gt; &#39;est&#39; 出现频数最高</span><br><span class="line">&#123;&#39;l&#39;, &#39;o&#39;, &#39;w&#39;, &#39;e&#39;, &#39;r&#39;, &#39;n&#39;, &#39;w&#39;, &#39;s&#39;, &#39;i&#39;, &#39;d&#39;, &#39;&#x2F;w&#39;, &#39;est&#39;&#125;</span><br><span class="line">&#x3D;&gt; &#39;est&#x2F;w&#39; 出现频数最高（&#39;&#x2F;w&#39;是分隔符）</span><br><span class="line">&#123;&#39;l&#39;, &#39;o&#39;, &#39;w&#39;, &#39;e&#39;, &#39;r&#39;, &#39;n&#39;, &#39;w&#39;, &#39;s&#39;, &#39;i&#39;, &#39;d&#39;, &#39;est&#x2F;w&#39;&#125;</span><br><span class="line">&#x3D;&gt; ...</span><br></pre></td></tr></table></figure>
+<ol>
+<li>继续上述迭代直到达到预设的Subword词表大小或下一个最高频的字节对出现频率为1</li>
+</ol>
+<h3 id="WordPiece"><a href="#WordPiece" class="headerlink" title="WordPiece"></a>WordPiece</h3><p>Bert模型在分词时使用WordPiece算法。与BPE算法类似，WordPiece算法也是每次从词表中选出两个子词合并成新的子词。与BPE的最大区别在于，如何选择两个子词进行合并：BPE选择频数最高的相邻子词合并，而WordPiece<strong>选择能够提升语言模型概率最大的相邻子词</strong>加入词表。</p>
+<p>步骤：</p>
+<ol>
+<li>假设句子$S=(t_1, t_2, …, t_n)$ 由 $n$ 个子词组成，$t_i$ 表示子词，独立，则句子 $S$  的语言模型似然值等价于所有子词概率的乘积 $\mathrm{log}P(S)=\sum^n_{i=1}\mathrm{log}P(t_i)$</li>
+<li>假设把相邻位置的x和y两个子词合并，合并后的子词记为z，此时句子 $S$  的似然值变化表示为：$\mathrm{log}P(t_z)-(\mathrm{log}P(t_x)+\mathrm{log}P(t_y))=\mathrm{log}(\frac{P(t_z)}{P(t_x)P(t_y)})$</li>
+</ol>
+<p>WordPiece每次选择合并的两个子词，他们具有最大的互信息值，也就是两子词在语言模型上具有较强的关联性，它们经常在语料中以相邻方式同时出现。</p>
+<h3 id="ULM"><a href="#ULM" class="headerlink" title="ULM"></a>ULM</h3><p>先初始化一个大词表，根据评估准则不断丢弃词表，直到满足限定条件。ULM算法考虑了句子的不同分词可能，因而能够输出带概率的多个子词分段。</p>
+<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><h2 id="预训练"><a href="#预训练" class="headerlink" title="预训练"></a>预训练</h2><p>一个任务A，一个任务B，二者相似，任务A已经训练出一个模型A，使用模型A的<strong>浅层</strong>参数去训练任务B，得到模型B。</p>
+<ol>
+<li>fine-tuning 微调：浅层参数跟着任务B训练变化</li>
+<li>冻结：浅层参数不变</li>
+</ol>
+<p>任务 A 对应的模型 A 的参数不再是随机初始化的，而是通过任务 B 进行预先训练得到模型 B，然后利用模型 B 的参数对模型 A 进行初始化，再通过任务 A 的数据对模型 A 进行训练。注：模型 B 的参数是随机初始化的。</p>
+<h2 id="统计语言模型"><a href="#统计语言模型" class="headerlink" title="统计语言模型"></a>统计语言模型</h2><p>条件概率</p>
+<h2 id="神经网络语言模型"><a href="#神经网络语言模型" class="headerlink" title="神经网络语言模型"></a>神经网络语言模型</h2><p>one-hot 编码</p>
+<p>词向量（神经网络语言模型的副产品） Q矩阵</p>
+<p>任何一个词，独特编码w1，w1 * Q = c1 得到词向量word embedding值，可获得词之间的相关性</p>
+<h2 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h2><p>重点是得到一个Q矩阵</p>
+<h3 id="CBOW"><a href="#CBOW" class="headerlink" title="CBOW"></a>CBOW</h3><p>给出一句话上下文，预测这个词（有点像BERT-MLM）</p>
+<h3 id="Skip-gram"><a href="#Skip-gram" class="headerlink" title="Skip-gram"></a>Skip-gram</h3><p>给出一个词，得到这个词的上下文</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>Q矩阵的设计不能多意apple-&gt;苹果/iPhone，静态embedding</p>
+<h2 id="ELMo（专门做词向量，通过预训练）"><a href="#ELMo（专门做词向量，通过预训练）" class="headerlink" title="ELMo（专门做词向量，通过预训练）"></a><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1802.05365.pdf">ELMo</a>（专门做词向量，通过预训练）</h2><p>解决多义词问题，<strong>根据当前上下文对 Word Embedding 动态调整的思路</strong></p>
+<p>不只是训练一个Q矩阵，同时把这个词的上下文信息融入到Q矩阵中。ELMO 的预训练过程不仅仅学会单词的 Word Embedding，还学会了一个双层双向的LSTM网络结构。</p>
+<p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/%E5%9F%BA%E4%BA%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84emedding.jpg" alt="img"></p>
+<p>把三层的信息叠加</p>
+<h2 id="Attention注意力"><a href="#Attention注意力" class="headerlink" title="Attention注意力"></a>Attention注意力</h2><p>Q、K、V，<strong>计算 Query 和 Values 中每个信息的相关程度。</strong></p>
+<p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/attention-%E8%AE%A1%E7%AE%97%E5%9B%BE.png" alt="img" style="zoom:67%;" /></p>
+<p>将 Query(Q) 和 key-value pairs（<strong>把 Values 拆分成了键值对的形式</strong>） 映射到输出上，其中 query、每个 key、每个 value 都是向量，输出是 V 中所有 values 的加权，其中权重是由 Query 和每个 key 计算出来的，计算方法分为三步：</p>
+<ol>
+<li>计算比较 Q 和 K 的相似度，用 f 来表示：$f(Q, K_i), i=1,2…m$，一般第一步计算方法包括四种<ul>
+<li>点乘（Transformer使用）：$f(Q,K_i)=Q^TK_i$</li>
+<li>权重：$f(Q,K_i) = Q^TWK_i$</li>
+<li>拼接权重：$f(Q,K_i)=W[Q^T:K_i]$</li>
+<li>感知机：$f(Q,K_i)=V^T\mathrm{tanh}(WQ+UK_i)$</li>
+</ul>
+</li>
+<li>将得到的相似度进行 softmax 操作，进行归一化$\alpha_i=\mathrm{softmax}(\frac{f(Q,K_i)}{\sqrt{d_K}})$</li>
+<li>针对计算出来的权重$\alpha_i$，对 V 中的所有 values 进行加权求和计算，得到 Attention 向量：$\mathrm{Attention}=\sum^m_{i=1}\alpha_iV_i$</li>
+</ol>
+<h3 id="Self-Attention-自注意力"><a href="#Self-Attention-自注意力" class="headerlink" title="Self-Attention 自注意力"></a>Self-Attention 自注意力</h3><p>Q/K/V同源，同一个X的三个线性变换</p>
+<p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/qk-softmax.jpg" alt="img" style="zoom:67%;" /></p>
+<p><strong>$Z_i$是$X_i$的新的词向量表达</strong></p>
+<h3 id="Masked-Self-Attention-掩码自注意力"><a href="#Masked-Self-Attention-掩码自注意力" class="headerlink" title="Masked Self-Attention 掩码自注意力"></a>Masked Self-Attention 掩码自注意力</h3><p>生成模型的改进，一个一个单词生成</p>
+<h3 id="Multi-head-Self-Attention-多头自注意力"><a href="#Multi-head-Self-Attention-多头自注意力" class="headerlink" title="Multi-head Self-Attention 多头自注意力"></a>Multi-head Self-Attention 多头自注意力</h3><p>一般$h=8$，对于X，不是直接得到Z，而是分成8块，得到$Z_0-Z_7$，然后把$Z_0-Z_7$拼接起来，再做一次线性变换得到Z。</p>
+<p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/multi-head-%E6%8B%BC%E6%8E%A5.jpg" alt="img" style="zoom:50%;" /></p>
+<p>多头相当于把原始信息 Source 放入了多个子空间中，也就是捕捉了多个信息，对于使用 multi-head（多头） attention 的简单回答就是，多头保证了 attention 可以注意到不同子空间的信息，捕捉到更加丰富的特征信息。</p>
+<h2 id="Positional-Embedding"><a href="#Positional-Embedding" class="headerlink" title="Positional Embedding"></a>Positional Embedding</h2><p>解决attention中的无位置关系的问题，交换单词位置后 attention map 的对应位置数值也会进行交换，并不会产生数值变化，即没有词序信息。</p>
+<p>sin/cos函数隐含位置信息</p>
+<p>而且位置信息是与文本无关的，即不管输入什么文本，第i个词的PE都是一样的</p>
+<h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><p>seq2seq</p>
+<p>Encoder-Decoder模型</p>
+<p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/tf-%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6.jpg" alt="img" style="zoom:67%;" /></p>
+<h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/encoder-%E8%AF%A6%E7%BB%86%E5%9B%BE.png" alt="img" style="zoom:67%;" /></p>
+<ol>
+<li>“Thinking”-&gt; 通过one-hot或word2vec等编码得到x1 + 叠加位置编码，输入 Self-Attention 做注意力机制得到 z1。z1 拥有了位置信息、句法特征、语义特征</li>
+<li>x1 作为残差网络（避免梯度消失）的直连向量，直接与 z1 相加，之后进行 LayerNorm（保证数据特征分布的稳定性，并加速模型的收敛）操作，得到 z1</li>
+<li>Feed Forward（非线性潜亏神经网络）中的 ReLU 做非线性变换，加残差网络，得到r1</li>
+<li>r1 会作为”Thinking”的表征输入下一个 Encoder （共6层）</li>
+</ol>
+<blockquote>
+<p><strong>上述的x、z、r 都具有相同的维数</strong>，论文中为 512 维。</p>
+<p>通过 Encoder 获得了更好的词向量</p>
+</blockquote>
+<h3 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h3><p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/ed-%E4%BA%A4%E4%BA%92.jpg" alt="img" style="zoom:67%;" /></p>
+<ol>
+<li>Masked Self-attention 计算输入的 Self-attention</li>
+<li>Encoder-Decoder Attention 计算，对 Encoder 的输入和 Decoder 的 Masked Self-attention 的输出进行 attention 计算</li>
+<li>前馈神经网络层，与 Encoder 相同</li>
+</ol>
+<h3 id="动态流程"><a href="#动态流程" class="headerlink" title="动态流程"></a>动态流程</h3><p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/tf-%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90.gif" alt="img" style="zoom: 67%;" /></p>
+<p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/tf-%E5%8A%A8%E6%80%81%E7%BB%93%E6%9E%9C-2.gif" alt="img" style="zoom:67%;" /></p>
+<ol>
+<li>输入 “je suis etudiant” 到 Encoders，然后得到一个 $K_e$、$V_e$ 矩阵</li>
+<li>输入 “I am a student” 到 Decoders ，首先通过 Masked Multi-head Attention 层得到 “I am a student” 的 attention 值 $Q_d$，然后用 attention 值 $Q_d$ 和 Encoders 的输出 $K_e$、$V_e$ 矩阵进行 attention 计算，得到第 1 个输出 “I”</li>
+<li>输入 “I am a student” 到 Decoders ，首先通过 Masked Multi-head Attention 层得到 “I am a student” 的 attention 值 $Q_d$，然后用 attention 值 $Q_d$ 和 Encoders 的输出 $K_e$、$V_e$ 矩阵进行 attention 计算，得到第 2 个输出 “am”</li>
+</ol>
+<blockquote>
+<p>Masked Self-Attention 作用：掩蔽decoder的输入</p>
+<p>Q 来源于解码器，K=V 来源于编码器，Q是查询变量、已生成的词（或开始符），K=V 是源语句</p>
+</blockquote>
+<h3 id="LayerNorm"><a href="#LayerNorm" class="headerlink" title="LayerNorm"></a>LayerNorm</h3><h3 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dropout</span>(<span class="params">x, level</span>):</span></span><br><span class="line">    <span class="keyword">if</span> level &lt; <span class="number">0.</span> <span class="keyword">or</span> level &gt;= <span class="number">1</span>: <span class="comment">#level是概率值，必须在0~1之间</span></span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">&#x27;Dropout level must be in interval [0, 1[.&#x27;</span>)</span><br><span class="line">    retain_prob = <span class="number">1.</span> - level</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 我们通过binomial函数，生成与x一样的维数向量。</span></span><br><span class="line">    <span class="comment"># binomial函数就像抛硬币一样，我们可以把每个神经元当做抛硬币一样</span></span><br><span class="line">    <span class="comment"># 硬币 正面的概率为p，n表示每个神经元试验的次数</span></span><br><span class="line">    <span class="comment"># 因为我们每个神经元只需要抛一次就可以了所以n=1，size参数是我们有多少个硬币。</span></span><br><span class="line">    random_tensor = np.random.binomial(n=<span class="number">1</span>, p=retain_prob, size=x.shape)</span><br><span class="line">    <span class="comment"># 生成一个0、1分布的向量，0表示这个神经元被屏蔽，不工作了，也就是dropout了</span></span><br><span class="line">    print(random_tensor)</span><br><span class="line">    x *= random_tensor</span><br><span class="line">    print(x)</span><br><span class="line">    x /= retain_prob <span class="comment"># rescale</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<h2 id="GPT-生成式的预训练"><a href="#GPT-生成式的预训练" class="headerlink" title="GPT 生成式的预训练"></a>GPT 生成式的预训练</h2><p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/gpt-%E6%A8%A1%E5%9E%8B.jpg" alt="img" style="zoom:67%;" /></p>
+<p>利用语言模型进行预训练，通过fine-tuning解决下游任务。</p>
+<p>特征抽取使用 transformer 的 decoder，仅使用单词之前的“上文”来训练（ELMo和BERT使用上下文）</p>
+<p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/gpt-fine.jpg" alt="img" style="zoom:67%;" /></p>
+<h2 id="BERT"><a href="#BERT" class="headerlink" title="BERT"></a>BERT</h2><blockquote>
+<p>从大量无标记数据集中训练得到的深度模型，可以显著提高各项自然语言处理任务的准确率。</p>
+<p>参考了 ELMO 模型的双向编码思想、借鉴了 GPT 用 Transformer 作为特征提取器的思路、采用了 word2vec 所使用的 CBOW 方法</p>
+</blockquote>
+<p>使用了 Transformer Encoder 作为特征提取器，并使用了与其配套的掩码训练方法。<strong>虽然使用双向编码让 BERT 不再具有文本生成能力，但是 BERT 的语义信息提取能力更强</strong>。</p>
+<p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/bert-%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84.jpg" alt="img" style="zoom:67%;" /></p>
+<p>BERT 代码参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/360988428">https://zhuanlan.zhihu.com/p/360988428</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"># 学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/all-reduce%E4%B8%8EGPU%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C/" rel="prev" title="all_reduce与GPU数据并行">
+      <i class="fa fa-chevron-left"></i> all_reduce与GPU数据并行
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">补充知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5"><span class="nav-number">1.1.</span> <span class="nav-text">混淆矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#N-gram"><span class="nav-number">1.2.</span> <span class="nav-text">N-gram</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Subword"><span class="nav-number">1.3.</span> <span class="nav-text">Subword</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BPE"><span class="nav-number">1.3.1.</span> <span class="nav-text">BPE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WordPiece"><span class="nav-number">1.3.2.</span> <span class="nav-text">WordPiece</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ULM"><span class="nav-number">1.3.3.</span> <span class="nav-text">ULM</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83"><span class="nav-number">2.1.</span> <span class="nav-text">预训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">统计语言模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">神经网络语言模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word2Vec"><span class="nav-number">2.4.</span> <span class="nav-text">Word2Vec</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CBOW"><span class="nav-number">2.4.1.</span> <span class="nav-text">CBOW</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram"><span class="nav-number">2.4.2.</span> <span class="nav-text">Skip-gram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">2.4.3.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELMo%EF%BC%88%E4%B8%93%E9%97%A8%E5%81%9A%E8%AF%8D%E5%90%91%E9%87%8F%EF%BC%8C%E9%80%9A%E8%BF%87%E9%A2%84%E8%AE%AD%E7%BB%83%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">ELMo（专门做词向量，通过预训练）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attention%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="nav-number">2.6.</span> <span class="nav-text">Attention注意力</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Self-Attention-%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="nav-number">2.6.1.</span> <span class="nav-text">Self-Attention 自注意力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Masked-Self-Attention-%E6%8E%A9%E7%A0%81%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="nav-number">2.6.2.</span> <span class="nav-text">Masked Self-Attention 掩码自注意力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-head-Self-Attention-%E5%A4%9A%E5%A4%B4%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="nav-number">2.6.3.</span> <span class="nav-text">Multi-head Self-Attention 多头自注意力</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Positional-Embedding"><span class="nav-number">2.7.</span> <span class="nav-text">Positional Embedding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer"><span class="nav-number">2.8.</span> <span class="nav-text">Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Encoder"><span class="nav-number">2.8.1.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decoder"><span class="nav-number">2.8.2.</span> <span class="nav-text">Decoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%B5%81%E7%A8%8B"><span class="nav-number">2.8.3.</span> <span class="nav-text">动态流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LayerNorm"><span class="nav-number">2.8.4.</span> <span class="nav-text">LayerNorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dropout"><span class="nav-number">2.8.5.</span> <span class="nav-text">Dropout</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPT-%E7%94%9F%E6%88%90%E5%BC%8F%E7%9A%84%E9%A2%84%E8%AE%AD%E7%BB%83"><span class="nav-number">2.9.</span> <span class="nav-text">GPT 生成式的预训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BERT"><span class="nav-number">2.10.</span> <span class="nav-text">BERT</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="chaofan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">chaofan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hcffffff" title="Github → https:&#x2F;&#x2F;github.com&#x2F;hcffffff" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hechaofan1@outlook.com" title="Email → mailto:hechaofan1@outlook.com" rel="noopener" target="_blank"><i class="far fa-envelope-open fa-fw"></i>Email</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chaofan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -28,8 +28,13 @@
 <meta property="og:description" content="KEPLER 论文笔记 写在前面：因为hexo和typora的垃圾配合，以后的图片都上传到github图床，每篇文章单独写笔记。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://raw.githubusercontent.com/hcffffff/image-store/master/%E6%88%AA%E5%B1%8F2022-12-11%2011.49.42.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/hcffffff/image-store/master/image-20221211134300870.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/hcffffff/image-store/master/image-20221211140024811.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/hcffffff/image-store/master/image-20221211140414008.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/hcffffff/image-store/master/image-20221211141010656.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/hcffffff/image-store/master/image-20221211154208291.png">
 <meta property="article:published_time" content="2022-12-11T03:17:52.000Z">
-<meta property="article:modified_time" content="2022-12-11T03:51:12.102Z">
+<meta property="article:modified_time" content="2022-12-11T13:07:24.600Z">
 <meta property="article:author" content="chaofan">
 <meta property="article:tag" content="学习">
 <meta name="twitter:card" content="summary">
@@ -195,7 +200,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-12-11 11:17:52 / Modified: 11:51:12" itemprop="dateCreated datePublished" datetime="2022-12-11T11:17:52+08:00">2022-12-11</time>
+              <time title="Created: 2022-12-11 11:17:52 / Modified: 21:07:24" itemprop="dateCreated datePublished" datetime="2022-12-11T11:17:52+08:00">2022-12-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -228,6 +233,100 @@
 <p>KE(knowledge embedding) methods can provide factual knowledge for PLMs, while the informative text data can also benefit KE.</p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/hcffffff/image-store/master/%E6%88%AA%E5%B1%8F2022-12-11%2011.49.42.png" alt="截屏2022-12-11 11.49.42"></p>
+<p>最近的预训练语言模型（PLM）已经在很多NLP任务上取得效果。现有PLMs虽然可以从无标签的文本数据中学习到语意信息，但是通常他们并不能很好的提取world facts，这类信息通常的是稀疏并以复杂的形式在文本中存在。</p>
+<p>另一方面，knowledge Graph（KG）包含大量的结构化信息，KE的方法可以有效的将这部分信息放入连续的实体和关系embedding中。这些embedding不仅有助于完善KG同时有利于很多NLP应用。如图一所示，文本实体的描述包含大量的信息。KE可以提供大量的知识信息给PLMs，同时有信息的文本数据有助于KE。</p>
+<p>受 Representation Learning 启发，文章用实体描述链接KE和PLM之间的空隙，并将文本语意空间和KG的符号空间对齐（align）。文章提出KEPLER，一种KE和PLM联合模型。方法用同一个PLM作为编码器将文本和实体encode到统一的语意空间中，并同时优化KE和MLM目标函数。</p>
+<ul>
+<li>KE：将实体的描述作为实体的表征并训练</li>
+<li>MLM：沿用现有方法（如：BERT）</li>
+</ul>
+<p>优势：</p>
+<ul>
+<li><p>通过对KG有监督地学习，融合知识信息</p>
+</li>
+<li><p>通过MLM目标继承PLM的强大语言理解能力</p>
+</li>
+<li><p>KE目标增强了KEPLER从文本中提取知识的能力</p>
+<blockquote>
+<p>enhances the ability of KEPLER to extract knowledge from text since it requires the model to encode the entities from their corresponding descriptions.</p>
+</blockquote>
+</li>
+<li><p>可直接适用于很多NLP任务</p>
+</li>
+</ul>
+<p>提出了一个新的数据集 Wikidata5M</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><p>Transformer 结构</p>
+<img src="https://raw.githubusercontent.com/hcffffff/image-store/master/image-20221211134300870.png" alt="image-20221211134300870"  />
+
+<h3 id="Knowledge-Embedding"><a href="#Knowledge-Embedding" class="headerlink" title="Knowledge Embedding"></a>Knowledge Embedding</h3><p>kg: {(h,r,t)} 三元组集合</p>
+<p>传统 KE 模型中：为每一个entity和relation分配一个 d 维向量（embedding），定义一个损失函数来训练这些embedding</p>
+<p>KEPLER中，不使用这样的 <code>stored embedding</code>，而是用entity对应的描述来encode</p>
+<blockquote>
+<p>In KEPLER, instead of using stored embeddings, we encode entities into vectors by using their corresponding text.</p>
+</blockquote>
+<p>探索了三种不同的embedding方式：</p>
+<ul>
+<li>实体描述作为embedding</li>
+</ul>
+<img src="https://raw.githubusercontent.com/hcffffff/image-store/master/image-20221211140024811.png" alt="image-20221211140024811" style="zoom: 80%;" />
+
+<p>交叉熵loss function：</p>
+<p><img src="https://raw.githubusercontent.com/hcffffff/image-store/master/image-20221211140414008.png" alt="image-20221211140414008"></p>
+<p>其中 $h’,t’$ 是构造的负类三元组（固定head，随机替换tail或者相反），$d_r(h,t)&#x3D;||h+r-t||_p$，这里$p&#x3D;1$，也可以取 2。</p>
+<ul>
+<li>实体和关系描述作为embedding</li>
+</ul>
+<p>上一种方法没有使用关系的描述作为embedding，这里使用，其他与上一种相同。</p>
+<ul>
+<li>基于关系条件的实体embeding</li>
+</ul>
+<blockquote>
+<p>semantics of an entity may have multiple aspects, and different relations focus on different ones</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/hcffffff/image-store/master/image-20221211141010656.png" alt="image-20221211141010656" style="zoom:80%;" />
+
+<p>这里 $text_{h,r}$ 是实体 h 和关系 r 的<strong>描述</strong>的拼接，使用 $h_r$ 代替上面loss function中的 $h$，其他不变</p>
+<h3 id="MLM"><a href="#MLM" class="headerlink" title="MLM"></a>MLM</h3><p>与 Bert 做法一样</p>
+<h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>$L&#x3D;L_{KE}+L_{MLM}$ 两个任务共享一个文本 encoder，但每一个batch的文本数据对 KE 和 MLM 不需要一致。</p>
+<h3 id="KEPLER-Wiki"><a href="#KEPLER-Wiki" class="headerlink" title="KEPLER-Wiki"></a>KEPLER-Wiki</h3><blockquote>
+<p>best performance</p>
+</blockquote>
+<p>adopts Wikidata5M as the KG and the entity-description-as-embedding method</p>
+<h2 id="Wikidata5M"><a href="#Wikidata5M" class="headerlink" title="Wikidata5M"></a><a target="_blank" rel="noopener" href="https://deepgraphlearning.github.io/project/wikidata5m">Wikidata5M</a></h2><p>Transductive&#x2F;inductive 数据集：验证集&#x2F;测试集中的entities是否出现在训练集中，trasnductive中的entities是共享的，inductive中的验证&#x2F;测试集是随机选择的连通子图，entities不相关。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>relation classification</p>
+<p>数据集：</p>
+<ul>
+<li><p>TACRED 关系抽取数据集 </p>
+<ul>
+<li>网站（打不开了？）<a target="_blank" rel="noopener" href="https://nlp.stanford.edu/projects/tacred/">https://nlp.stanford.edu/projects/tacred/</a></li>
+<li>介绍 <a target="_blank" rel="noopener" href="http://124.223.11.111/index.php/2019/08/22/370/">http://124.223.11.111/index.php/2019/08/22/370/</a></li>
+</ul>
+</li>
+<li><p>FewRel 小样本关系抽取</p>
+<ul>
+<li><p>网站 <a target="_blank" rel="noopener" href="http://www.zhuhao.me/fewrel/">http://www.zhuhao.me/fewrel/</a></p>
+</li>
+<li><p>介绍：N way K shot设定，即对于N种关系，每种关系的支持集中包含K个样本。</p>
+</li>
+<li><p>一个3way-2shot的例子</p>
+<img src="https://raw.githubusercontent.com/hcffffff/image-store/master/image-20221211154208291.png" alt="image-20221211154208291" style="zoom:80%;" />
+</li>
+<li><p>介绍：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41803874/article/details/90960811">https://blog.csdn.net/weixin_41803874/article/details/90960811</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Entity typing</p>
+<p>Entity typing requires to classify given entity mentions into pre-defined types.</p>
+<p>数据集：</p>
+<ul>
+<li>OpenEntity<ul>
+<li>6 entity types and 2,000 instances for training, validation and test each.</li>
+<li>为什么说只有6种关系类型呢？原文中明明上百来种。</li>
+</ul>
+</li>
+</ul>
+<p>GLUE</p>
 
     </div>
 
@@ -308,7 +407,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KEPLER"><span class="nav-number">1.</span> <span class="nav-text">KEPLER</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KEPLER"><span class="nav-number">1.</span> <span class="nav-text">KEPLER</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Encoder"><span class="nav-number">1.2.1.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Knowledge-Embedding"><span class="nav-number">1.2.2.</span> <span class="nav-text">Knowledge Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MLM"><span class="nav-number">1.2.3.</span> <span class="nav-text">MLM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-number">1.2.4.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KEPLER-Wiki"><span class="nav-number">1.2.5.</span> <span class="nav-text">KEPLER-Wiki</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wikidata5M"><span class="nav-number">1.3.</span> <span class="nav-text">Wikidata5M</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.4.</span> <span class="nav-text">实验</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
